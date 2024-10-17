@@ -13,6 +13,9 @@
 
 namespace figcone::ini {
 
+using IniSection = ::ini::IniSection;
+using IniFile = ::ini::IniFile;
+
 namespace {
 const auto fakeRootSectionId = std::string{"71cd27eb-7f27-4b61-a2ff-a64c89b275a7"};
 
@@ -36,7 +39,7 @@ std::string getStreamContent(std::istream& stream)
     return {std::istream_iterator<char>{stream}, std::istream_iterator<char>{}};
 }
 
-void parseSection(const figcone::ini::IniSection& section, figcone::TreeNode& node)
+void parseSection(const IniSection& section, figcone::TreeNode& node)
 {
     for (const auto& [key, value] : section) {
         if (const auto paramList = detail::readParamList(key, value.as<std::string>()))
